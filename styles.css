@@ -1,0 +1,38 @@
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: black;
+}
+
+header a {
+  font-size: 2rem !important;
+  color: black !important;
+}
+
+main {
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+main h1 {
+  color: white;
+}
+
+header, footer {
+  width: 100%;
+}
+.card-img-top {
+  width: 50% !important;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+.card-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
