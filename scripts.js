@@ -1,20 +1,20 @@
 const lista = document.getElementById('lista')
 
-const apiUrl = 'http://localhost:3000/filmes'
+const apiUrl = 'http://localhost:3000/filmes';
 
-let edicao = false
-let idEdicao = 0
+let edicao = false;
+let idEdicao = 0;
 
-let nome = document.getElementById('nome')
-let imagem = document.getElementById('imagem')
-let genero = document.getElementById('genero')
-let nota = document.getElementById('nota')
+let nome = document.getElementById('nome');
+let imagem = document.getElementById('imagem');
+let genero = document.getElementById('genero');
+let nota = document.getElementById('nota');
 
 const getFilmes = async () => {
-  const response = await fetch(apiUrl)
-  const filmes = await response.json()
+  const response = await fetch(apiUrl);
+  const filmes = await response.json();
 
-  console.log(filmes)
+  console.log(filmes);
 
   filmes.map(filme => {
     lista.insertAdjacentHTML(
@@ -39,13 +39,13 @@ const getFilmes = async () => {
         </div>
         `
     )
-  })
+  });
 }
 
 // [POST]
 const submitForm = async event => {
 
-  event.preventDefault()
+  event.preventDefault();
 
   const filme = {
     nome: nome.value,
@@ -55,13 +55,13 @@ const submitForm = async event => {
   }
 
   if (edicao) {
-    putFilme(filme, idEdicao)
+    putFilme(filme, idEdicao);
   } else {
-    createFilme(filme)
+    createFilme(filme);
   }
 
-  clearFields()
-  lista.innerHTML = ''
+  clearFields();
+  lista.innerHTML = '';
 }
 
 const createFilme = async filme => {
@@ -71,13 +71,13 @@ const createFilme = async filme => {
     headers: new Headers({
       'Content-Type': 'application/json'
     })
-  })
+  });
 
-  const response = await fetch(request)
-  const result = await response.json()
+  const response = await fetch(request);
+  const result = await response.json();
   
-  alert(result.message)
-  getFilmes()
+  alert(result.message);
+  getFilmes();
 }
 
 // [PUT]
@@ -88,49 +88,49 @@ const putFilme = async (filme, id) => {
     headers: new Headers({
       'Content-Type': 'application/json'
     })
-  })
+  });
 
-  const response = await fetch(request)
-  const result = await response.json()
+  const response = await fetch(request);
+  const result = await response.json();
 
-  alert(result.message)
-  edicao = false
-  idEdicao = 0
-  getFilmes()
+  alert(result.message);
+  edicao = false;
+  idEdicao = 0;
+  getFilmes();
 }
 
 // [DELETE]
 const deleteFilme = async id => {
   const request = new Request(`${apiUrl}/delete/${id}`, {
     method: 'DELETE'
-  })
+  });
 
-  const response = await fetch(request)
-  const result = await response.json()
+  const response = await fetch(request);
+  const result = await response.json();
 
-  alert(result.message)
+  alert(result.message);
 
-  lista.innerHTML = ''
-  getFilmes()
+  lista.innerHTML = '';
+  getFilmes();
 }
 
 // [GET / by id]
 const getFilmeById = async id => {
-  const response = await fetch(`${apiUrl}/${id}`)
-  return await response.json()
+  const response = await fetch(`${apiUrl}/${id}`);
+  return await response.json();
 }
 
 const editFilme = async id => {
 
-  edicao = true
-  idEdicao = id
+  edicao = true;
+  idEdicao = id;
 
-  const filme = await getFilmeById(id)
+  const filme = await getFilmeById(id);
 
-  nome.value = filme.nome
-  imagem.value = filme.imagem
-  genero.value = filme.genero
-  nota.value = filme.nota
+  nome.value = filme.nome;
+  imagem.value = filme.imagem;
+  genero.value = filme.genero;
+  nota.value = filme.nota;
 }
 
 const checkAssistido = async (id) => {
@@ -141,8 +141,6 @@ const checkAssistido = async (id) => {
   } else {
     filme.assistido = true;
   }
-
-  console.log(filme.assistido)
   
   const response = await fetch(`${apiUrl}/edit/${id}`, {
     method: 'PUT',
@@ -150,21 +148,17 @@ const checkAssistido = async (id) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(filme)
-  })
-
-  console.log(filme.assistido)
+  });
 
   lista.innerHTML = '';
   getFilmes();
-
-  console.log(filme.assistido)
 }
 
 const clearFields = () => {
-  nome.value = ''
-  imagem.value = ''
-  genero.value = ''
-  nota.value = ''
+  nome.value = '';
+  imagem.value = '';
+  genero.value = '';
+  nota.value = '';
 }
 
-getFilmes()
+getFilmes();
