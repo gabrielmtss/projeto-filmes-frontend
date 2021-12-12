@@ -32,6 +32,7 @@ const getFilmes = async () => {
                 <div>
                     <button class="btn btn-primary" onclick="editFilme('${filme.id}')">Editar</button>
                     <button class="btn btn-danger" onclick="deleteFilme('${filme.id}')">Excluir</button>
+                    <input type="checkbox" onclick="checkAssistido('${filme.id}')" ${filme.assistido ? 'checked' : '' }> Assistido
                 </div>
             </div>
             </div>
@@ -50,8 +51,7 @@ const submitForm = async event => {
     nome: nome.value,
     imagem: imagem.value,
     genero: genero.value,
-    nota: nota.value,
-    assistido: false
+    nota: nota.value
   }
 
   if (edicao) {
@@ -81,10 +81,10 @@ const createFilme = async filme => {
 }
 
 // [PUT]
-const putFilme = async (jogo, id) => {
+const putFilme = async (filme, id) => {
   const request = new Request(`${apiUrl}/edit/${id}`, {
     method: 'PUT',
-    body: JSON.stringify(jogo),
+    body: JSON.stringify(filme),
     headers: new Headers({
       'Content-Type': 'application/json'
     })
@@ -131,6 +131,33 @@ const editFilme = async id => {
   imagem.value = filme.imagem
   genero.value = filme.genero
   nota.value = filme.nota
+}
+
+const checkAssistido = async (id) => {
+  const filme = await getFilmeById(id);
+
+  if (filme.assistido) {
+    filme.assistido = false;
+  } else {
+    filme.assistido = true;
+  }
+
+  console.log(filme.assistido)
+  
+  const response = await fetch(`${apiUrl}/edit/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(filme)
+  })
+
+  console.log(filme.assistido)
+
+  lista.innerHTML = '';
+  getFilmes();
+
+  console.log(filme.assistido)
 }
 
 const clearFields = () => {
