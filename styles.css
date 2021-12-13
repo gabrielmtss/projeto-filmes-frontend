@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
 }
+
 body {
   display: flex;
   align-items: flex-start;
@@ -10,7 +11,7 @@ body {
 
 header a {
   font-size: 2rem !important;
-  color: black !important;
+  color: white !important;
 }
 
 main {
@@ -25,8 +26,9 @@ main h1 {
 header, footer {
   width: 100%;
 }
+
 .card-img-top {
-  width: 50% !important;
+  width: 70% !important;
   height: auto !important;
   margin: 0 auto;
 }
