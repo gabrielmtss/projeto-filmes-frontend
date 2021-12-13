@@ -30,7 +30,7 @@ const getFilmes = async () => {
                   <h3 class="card-text m-3">Nota ${filme.nota}</h3>
                 </div>
                 <div>
-                    <button class="btn btn-primary" onclick="editFilme('${filme.id}')">Editar</button>
+                    <button class="btn btn-dark" onclick="editFilme('${filme.id}')">Editar</button>
                     <button class="btn btn-danger" onclick="deleteFilme('${filme.id}')">Excluir</button>
                     <input type="checkbox" onclick="checkAssistido('${filme.id}')" ${filme.assistido ? 'checked' : '' }> Assistido
                 </div>
